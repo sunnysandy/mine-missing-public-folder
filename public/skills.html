@@ -1,0 +1,9 @@
+var obj={}
+obj.name=$("#name").val();
+obj.DOB=$("#dob").val();
+obj.address=$("#address").val();
+obj.phone=$("#mobile").val();
+obj.skype=$("#skype").val();
+obj.skill=    $('#tags').on('autocompleteselect', function (e, ui) {
+        $('#tagsname').html('You selected: ' + ui.item.value);
+    });

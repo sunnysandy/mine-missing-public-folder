@@ -1,0 +1,81 @@
+<!Doctype html>
+<html>
+<head>
+<body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+      
+    <script src="/public/js/jquery.validate.min.js"></script>
+
+<title>register page</title>
+
+</head>
+
+<form class="validation">
+<label for="name">name
+<input type="text" name="name" value="" id="username" required>
+</label>
+<label for="password">password
+<input type="password" id="password" name="password" value="" required>
+</label>
+<label for="confrompassword">confrompassword
+<input type="password"  name="confrompassword" value="" required>
+</label>
+<input type="button" name="" value="submit" id="btn">
+</form>
+<script>
+$("document").ready(function(){
+$(".validation").validate({
+rules:{
+name:{
+required:true
+},
+password:{
+required:true
+},
+confrompassword:{
+required:true,
+equalTo:"#password"
+}
+},
+messages:{
+name:{
+required:"name cant be empty"
+},
+password:{
+required:"password can't be empty"
+},
+confrompassword:{
+required:"re-enter the same password"
+}
+}
+});
+
+
+
+$("#btn").click(function(){
+var valid= $(".validation").validate();
+});
+});
+
+      $("#btn").click(function(){
+        var params={emailid:$("#username").val(),password:$("#password").val()}
+        $.ajax({
+            url: "/register",
+            contentType: "application/json; charset=utf-8",
+            type: 'POST',
+            data: JSON.stringify(params),
+            dataType: "json",
+            cache: false,
+            success: function (resp) {
+                console.log(resp)
+              window.location.href=resp.url;
+            }, error: function (jqXHR, textStatus, errorThrown) {
+				      console.log(jqXHR);
+                alert("Oops! Something went wrong. Try again later.");
+            }
+        });
+      })
+</script>
+</body>
+</html>

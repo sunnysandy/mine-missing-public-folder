@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>myresume</title>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script src="/public/js/jquery.validate.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+</head>
+<body>
+<style>
+label.error{
+	    color: red;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+</style>
+<form id="valid">
+
+<fieldset id="step1">
+<h4>Tell me about yourself</h4>
+	<legend>step1</legend>
+
+	<p>
+		<label class="name">Name :</label>
+		<input type="text" name="name" id="name" required="required" pattern="[a-zA-Z]" maxlength="4">
+	</p>
+<p><label id="number" style="display: none;">numeric values will not accepted</label></p>
+	<p>
+		<label class="DOB">Date Of Birth :</label>
+		<input type="Date" name="date" id="dob" required="required">
+	</p>
+	<p>
+		<label class="address">Address :</label>
+		<textarea rows="3" cols="10" name="address" id="address" required="required"></textarea>
+	</p>
+	<p>
+		<label class="phone">Phone :</label>
+		<input type="number" name="phone" id="mobile" required="required" pattern="[0-9]" maxlength="10">
+	</p>
+	<p>
+		<label class="skype">Skype :</label>
+		<input type="text" name="skype" id="skype" required="required" >
+	</p>
+	<input type="button" name="" value="next" id="btn1" >
+</fieldset>
+<fieldset style="display: none;" id="step2">
+<h4>Your skills(Professional skills)</h4>
+<legend>step2</legend>
+  <div class="ui-widget">
+  <label for="tags">skills </label>
+  <input id="tags" size="50" name="inputfield" required="required">
+ </div>
+
+
+   <tr>
+      <td>
+	   <p>
+	<label class="projectname">Project Name :</label>
+	<input type="text" name="project" id="project" class="projectname" required="required">
+	</p>
+	</td>
+
+	 <td> <p>
+		<label class="company">Company name :</label>
+		<input type="text" name="company" id="companyname" class="companyname" required="required">
+	</p>
+	</td>
+	     <td> <p>
+	      <label class="date">startdate:</label>
+	      <input  class="datepicker" name="startdate" id="firstdate" class="startdate" required="required">
+	      </p> </td>
+	      <td> <p>
+	     	<label class="date">enddate :</label>
+	     <input  class="datepicker" name="enddate" id="lastdate" class="enddate" required="required">
+	     </p> </td>
+	  <td> <p>
+		<label>Project Description</label>
+		<input type="textarea" rows="3" cols="10" name="project1" id="textarea" class="projectdescription" required="required">
+	 </p> </td>
+	 <td> <p>
+	 	<input type="button" name="" value="addskills" id="btnAdd">
+	 </p> </td>
+	 </tr>
+	 <div id="binding"></div>
+	 <input type="button" name="" value="next" style="float: left;" id="nxt">
+	 <input type="button" name="" value="back" style="float: right;" id="back">
+</fieldset>
+
+<fieldset id="step3" style="display: none;">
+<h4>Your Education Details :</h4>
+<legend>step3</legend>
+<p>
+	<label class="degree">Bachlor Degree :</label>
+	<input type="text" name="degree" id="bachlordegree" required="required">
+
+</p>
+<p>
+	<label class="inter">Inter :</label>
+	<input type="text" name="inter" id="intermidate" required="required">
+
+</p>
+<p>
+	<label class="ssc">SSC :</label>
+	<input type="text" name="ssc" id="ssc" required="required">
+
+</p>
+<input type="button" name="" value="next" id="nxt1" style="float: left;">
+
+<input type="button" name="" value="back" id="back1" style="float: right;">
+
+</fieldset>
+<fieldset id="step4" style="display: none;">
+	<h4>Your Services</h4>
+	<legend><strong>step4</strong></legend>
+	<p>
+		<label>Service1</label>
+		<p><label class="heading">Heading :</label>
+		<input type="text" name="text" id="head" required="required"></p>
+		<p><label class="description">Description :</label>
+		<input type="textarea" id="description" required="required" name="textarea" ></p>
+	</p>
+	<input type="button" name="" value="back" id="back2" >
+	</fieldset>
+	<input type="button" name="" value="submit" id="btn">
+
+</div>
+</form>
+<script  src="/public/js/dashboard.js"></script>
+<script>
+$("document").ready(function(){
+	$("#btn1").click(function(){
+    $("#step2").show();
+    $("#step1").hide();
+    $("#step3").hide();
+	});
+		$("#nxt").click(function(){
+    $("#step3").show();
+        $("#step2").hide();
+        $("#step1").hide();
+	});
+			$("#back").click(function(){
+    $("#step1").show();
+
+      $("#step2").hide();
+
+	});
+		$("#nxt1").click(function(){
+    $("#step4").show();
+        $("#step1").hide();
+        $("#step2").hide();
+        $("#step3").hide();
+	});
+
+	$("#back1").click(function(){
+    $("#step2").show();
+    $("#step3").hide();
+
+	});
+		$("#back2").click(function(){
+    $("#step3").show();
+    $("#step1").hide();
+    $("#step2").hide();
+    $("#step4").hide();
+
+	});
+
+
+    $( ".datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+
+$("#btnAdd").click(function(){
+	var bindtr="<tr><p>"+"<td><input name='project'></td>"+"<td><input type='text'></td>"+"<td><input type='text'></td>"+"<td><input type='text'></td>"+"<td><input type='text'></td>"+"</tr></p>"
+	$("#binding").append(bindtr);
+
+
+});
+	 var availableTags = ["photoshop","Illustrator","Indesign","hypertext"];
+
+   function split( val ) {
+      return val.split( /,\s*/ );
+    }
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+
+    $( "#tags" )
+      // don't navigate away from the field on tab when selecting an item
+      .on( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).autocomplete( "instance" ).menu.active ) {
+          event.preventDefault();
+        }
+      })
+      .autocomplete({
+        minLength: 0,
+        source: function( request, response ) {
+          // delegate back to autocomplete, but extract the last term
+          response( $.ui.autocomplete.filter(
+            availableTags, extractLast( request.term ) ) );
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        }
+      });
+
+
+
+
+	$("#valid").validate({
+		rules:{
+			step1:{
+
+			name: { lettersonly: true ,required:true},
+			date:"required",
+
+      address:"required",
+			phone:"required",
+			skype:"required"
+		},
+		step2:{
+	      inputfield:"required"
+	      	},
+	      	step3:{
+	      		project:"required",
+	      		company:"required",
+				startdate:"required",
+				enddate:"required",
+				project:"required"
+	      	},
+	      	step4:{
+	      		 degree:"required",
+                 inter:"required",
+                 ssc:"required"
+             },
+             step5:{
+             	  text:"required",
+                  description:"required"
+             }
+     },
+
+	messages:{
+		name:{
+		required:"name is empty"
+	     },
+		date:{
+		required:"select date"
+	    },
+		address:{
+		required:"mention address"
+     	},
+		phone:{
+		required:"enter a mobile number"
+       	},
+      skype:{
+      required:"enter a skype id"
+	},
+		inputfield:{
+			required:"select text fields"
+		},
+		project:{
+			required:"project details required"
+		},
+         company:{
+         	required:"companyname required"
+         },
+         startdate:{
+         	required:"select startdate"
+         },
+       enddate:{
+             required:"select enddate"
+       },
+       project1:{
+       	required:"fillup project details"
+       },
+       degree:{
+       	required:"degree details required"
+       },
+      inter:{
+      	required:"inter details required"
+      },
+     ssc:{
+     	required:"ssc details required"
+     },
+    text:{
+    	required:"fillup text"
+    },
+ textarea:{
+ 	required:"description required"
+  }
+   },
+
+	});
+	$("#btn").click(function(){
+   //step1 details
+        var formvalidation=$("#valid").valid();
+		 var reg=/^[a-z]+$/   //only aplhabetics characters functionality
+		 if (reg.test($("#name").val())|| $("#name").val()=="") {
+		 $("#number").hide()
+		 	}
+		else{
+			$("#number").show()
+		}
+
+getvalues()
+	});
+
+
+
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <script src="/public/js/jquery.min.js"></script>
+    <script src="/public/js/jquery.validate.min.js"></script>
+    <meta charset="utf-8">
+    <title></title>
+      <link href="/public/css/style.css" rel="stylesheet">
+
+
+  </head>
+  <body>
+    <div class="panda">
+      <div class="ear"></div>
+      <div class="face">
+        <div class="eye-shade"></div>
+        <div class="eye-white">
+          <div class="eye-ball"></div>
+        </div>
+        <div class="eye-shade rgt"></div>
+        <div class="eye-white rgt">
+          <div class="eye-ball"></div>
+        </div>
+        <div class="nose"></div>
+        <div class="mouth"></div>
+      </div>
+      <div class="body"> </div>
+      <div class="foot">
+        <div class="finger"></div>
+      </div>
+      <div class="foot rgt">
+        <div class="finger"></div>
+      </div>
+    </div>
+    <form id="valid">
+      <div class="hand"></div>
+      <div class="hand rgt"></div>
+      <h1>Login</h1>
+      <div class="form-group">
+        <input type="text" name="username" required="required"class="form-control" id="username" />
+        <label class="form-label">Username </label>
+      </div>
+      <div class="form-group">
+      <input id="password" type="password" name="password" required="required" class="form-control"/>
+        <label class="form-label">Password</label>
+        <p class="alert" style="display:none;">Invalid Credentials..!!</p>
+        <input type="button"class="btn" id="loginBtn" value="Login" >
+      </div>
+    </form>
+
+
+<script type="text/javascript">
+//validation
+$(document).ready(function(){
+  $("#valid").validate({
+    rules:{
+    username:"required",
+    password:"required"
+  },
+  messages:{
+    username:"username not be an empty",
+    password:"password must be valid"
+}
+ });
+  $("#loginbtn").click(function(){
+    var validform=$("#valid").valid();
+var name = $("#username").val()
+var password=$("#pwd").val()
+
+});
+});
+$('#password').focusin(function(){
+  $('form').addClass('up')
+});
+$('#password').focusout(function(){
+  $('form').removeClass('up')
+});
+
+// Panda Eye move
+$(document).on( "mousemove", function( event ) {
+  var dw = $(document).width() / 15;
+  var dh = $(document).height() / 15;
+  var x = event.pageX/ dw;
+  var y = event.pageY/ dh;
+  $('.eye-ball').css({
+    width : x,
+    height : y
+  });
+});
+
+// validation
+
+
+$('.btn').click(function(){
+  $('form').addClass('wrong-entry');
+    setTimeout(function(){
+       $('form').removeClass('wrong-entry');
+     },3000 );
+});
+// ajax
+$("#loginBtn").click(function(){
+
+  var form=$("#valid").valid();
+  if(!form){
+    alert("invalid form")
+    return false;
+  }
+  var params={email:$("#username").val(),password:$("#password").val()}
+  $.ajax({
+      url: "/login",
+      contentType: "application/json; charset=utf-8",
+      type: 'POST',
+      data: JSON.stringify(params),
+      dataType: "json",
+      cache: false,
+      success: function (resp) {
+          console.log(resp)
+          if(resp.status=="OK"){
+            alert(resp.msg)
+            if (typeof(Storage) !== "undefined") {
+    // Store
+    localStorage.setItem("username", $("#username").val());
+    }
+
+
+
+
+
+            window.location.href=resp.url;
+          }
+          else {
+            alert(resp.msg)
+          }
+        }
+    });
+});
+
+</script>
+
+  </body>
+</html>
